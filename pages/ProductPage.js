@@ -1,3 +1,5 @@
+const { logger } = require('../utils/logger');
+
 export class ProductPage {
 
     constructor(page) {
@@ -7,9 +9,11 @@ export class ProductPage {
         this.cartBadge = page.locator('.shopping_cart_badge');
     }   
     async addToCart() {
+        logger.info('Adding product to cart');
         await this.addToCartButton.click();
     }
     async removeFromCart() {
+        logger.info('Removing product from cart');
         await this.removeButton.click();
     }
     async getCartBadgeCount() {
@@ -19,6 +23,7 @@ export class ProductPage {
         return await this.cartBadge.isVisible();
     }
     async navigateToProductPage(productId) {
+        logger.info(`Navigating to product page: ${productId}`);
         await this.page.goto(`/inventory-item.html?id=${productId}`);
     }
     async isAddToCartButtonVisible() {

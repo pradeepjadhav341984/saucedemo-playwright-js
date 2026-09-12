@@ -1,3 +1,5 @@
+const { logger } = require('../utils/logger');
+
 export class LoginPage {
 
     constructor(page) {
@@ -17,6 +19,7 @@ export class LoginPage {
 
     async navigateToLogin() {
 
+        logger.info('Navigating to the login page');
         await this.page.goto('/');
 
     }
@@ -24,18 +27,23 @@ export class LoginPage {
 
     async login(username, password) {
 
+        logger.info(`Attempting login for user: ${username}`);
         await this.usernameInput.fill(username);
 
         await this.passwordInput.fill(password);
 
         await this.loginButton.click();
 
+        logger.info(`Login submitted for user: ${username}`);
+
     }
 
 
     async getErrorMessage() {
 
-        return await this.errorMessage.textContent();
+        const errorMessage = await this.errorMessage.textContent();
+        logger.warn(`Login error displayed: ${errorMessage}`);
+        return errorMessage;
 
     }
 
