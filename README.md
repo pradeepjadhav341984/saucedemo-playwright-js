@@ -565,7 +565,7 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: SauceDemo Playwright tests passed
           to: pradeepjadhav3@gmail.com
-          from: ${{ secrets.SMTP_USERNAME }}
+          from: pradeepjadhav3@gmail.com
           body: Test run passed. See the uploaded Allure report artifact.
 
       - name: Upload Playwright Report
