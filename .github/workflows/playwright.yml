@@ -46,7 +46,7 @@ jobs:
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: SauceDemo Playwright tests passed
         to: pradeepjadhav409@gmail.com
-        from: pradeepjadhav3@gmail.com
+        from: ${{ secrets.SMTP_USERNAME }}
         body: |
           The SauceDemo Playwright Chromium test suite passed successfully.
 
