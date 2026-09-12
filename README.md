@@ -559,8 +559,8 @@ jobs:
         if: success()
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: ${{ secrets.SMTP_SERVER }}
-          server_port: ${{ secrets.SMTP_PORT }}
+          server_address: smtp.gmail.com
+          server_port: 465
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: SauceDemo Playwright tests passed
@@ -582,8 +582,6 @@ jobs:
 Add these repository secrets under **Settings > Secrets and variables >
 Actions**:
 
-* `SMTP_SERVER`, for example `smtp.gmail.com`
-* `SMTP_PORT`, for example `465`
 * `SMTP_USERNAME`, the sender email address
 * `SMTP_PASSWORD`, an SMTP password or provider app password
 
