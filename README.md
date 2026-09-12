@@ -582,8 +582,13 @@ jobs:
 Add these repository secrets under **Settings > Secrets and variables >
 Actions**:
 
-* `SMTP_USERNAME`, the sender email address
-* `SMTP_PASSWORD`, an SMTP password or provider app password
+* `SMTP_USERNAME`, the Gmail account used to send the email
+* `SMTP_PASSWORD`, a Google App Password for that same account, not the normal Gmail password
+
+For Gmail, enable 2-Step Verification on the sender account and create an App
+Password under Google Account security. Set `SMTP_USERNAME` to that sender
+account, for example `pradeepjadhav3@gmail.com`, and store the generated
+16-character App Password in `SMTP_PASSWORD`.
 
 The email step runs only when the test job succeeds. Failed or cancelled runs
 upload available reports but do not send an email.
