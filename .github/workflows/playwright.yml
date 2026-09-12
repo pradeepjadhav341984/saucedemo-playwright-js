@@ -18,10 +18,38 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      run: npm run test:chromium
+    - name: Generate Allure report
+      if: ${{ always() }}
+      run: npm run report:allure
+    - name: Upload Playwright report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
       with:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Upload Allure report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report/
+        retention-days: 30
+    - name: Send success email
+      if: ${{ success() }}
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: ${{ secrets.SMTP_SERVER }}
+        server_port: ${{ secrets.SMTP_PORT }}
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: SauceDemo Playwright tests passed
+        to: pradeepjadhav3@gmail.com
+        from: ${{ secrets.SMTP_USERNAME }}
+        body: |
+          The SauceDemo Playwright Chromium test suite passed successfully.
+
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.ref_name }}
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
