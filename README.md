@@ -1,4 +1,286 @@
-﻿# saucedemo-playwright-js
+﻿SauceDemo – End-to-End Test Plan
+1. Test Plan Information
+Item	Details
+Project Name	SauceDemo E-Commerce Application
+Application URL	https://www.saucedemo.com/
+Application Type	Web-based E-Commerce
+Testing Type	Functional + End-to-End + Regression
+Primary Objective	Validate the complete shopping journey
+Test Automation	Playwright + TypeScript/JavaScript
+Framework	Page Object Model
+Test Runner	Playwright Test
+Browsers	Chrome, Firefox, Edge
+Environment	Web
+Priority	Critical business flows first
+2. Test Objective
+
+The objective is to verify that a user can successfully complete the complete e-commerce journey:
+
+Login → Product Listing → Product Details → Add to Cart → Cart Validation → Checkout → Order Review → Place Order → Order Confirmation → Logout
+
+The core areas generally covered for SauceDemo include login, inventory, cart and checkout.
+
+3. Scope of Testing
+In Scope
+A. Login
+Valid login
+Invalid username
+Invalid password
+Empty username
+Empty password
+Locked-out user
+Login error messages
+Logout
+B. Product / Inventory
+Product listing
+Product name
+Product description
+Product price
+Product image
+Add to cart
+Remove from cart
+Product sorting
+Product details page
+C. Shopping Cart
+Add single product
+Add multiple products
+Cart badge
+Cart contents
+Product price
+Remove product
+Continue Shopping
+Checkout
+D. Checkout
+Checkout form
+First Name
+Last Name
+Postal Code
+Mandatory-field validation
+Continue
+Cancel
+E. Order Summary
+Product validation
+Quantity
+Product price
+Item total
+Tax
+Grand total
+Finish button
+F. Order Completion
+Successful order
+Confirmation message
+Back Home
+Cart state after purchase
+G. Navigation
+Hamburger menu
+All Items
+About
+Logout
+Reset App State
+4. Out of Scope
+
+The following should not be considered real production payment testing because SauceDemo is a demonstration/testing application:
+
+Real payment gateway
+Real credit/debit card transaction
+Real bank transaction
+Actual order fulfillment
+Shipping integration
+Real inventory backend
+Real customer database
+Production payment security
+5. Test Environment
+Component	Configuration
+OS	Windows 10/11
+Browser 1	Chrome
+Browser 2	Firefox
+Browser 3	Edge
+Automation	Playwright
+Language	TypeScript
+Test Runner	Playwright Test
+URL	https://www.saucedemo.com/
+6. Test Data
+
+Common SauceDemo test users include:
+
+Username	Password	Purpose
+standard_user	secret_sauce	Normal E2E flow
+locked_out_user	secret_sauce	Negative login
+problem_user	secret_sauce	Problem-user behavior
+performance_glitch_user	secret_sauce	Performance behavior
+
+These credentials and product examples are also documented in automation projects for SauceDemo.
+
+Product Test Data
+Product	Price
+Sauce Labs Backpack	$29.99
+Sauce Labs Bike Light	$9.99
+Sauce Labs Bolt T-Shirt	$15.99
+Sauce Labs Fleece Jacket	$49.99
+Sauce Labs Onesie	$7.99
+Test.allTheThings() T-Shirt (Red)	$15.99
+7. End-to-End Test Scenario
+E2E-001 – Complete Purchase Journey
+Preconditions
+Application is accessible.
+Valid user credentials are available.
+Browser is installed.
+Test environment is available.
+Steps
+Navigate to SauceDemo.
+Enter username.
+Enter password.
+Click Login.
+Verify Inventory page.
+Verify products are displayed.
+Select a product.
+Verify product details.
+Add product to cart.
+Add a second product.
+Verify cart badge.
+Open shopping cart.
+Verify selected products.
+Verify product prices.
+Remove a product if required.
+Click Checkout.
+Enter First Name.
+Enter Last Name.
+Enter Postal Code.
+Click Continue.
+Verify Checkout Overview.
+Verify products.
+Verify item total.
+Verify tax.
+Verify total amount.
+Click Finish.
+Verify order confirmation.
+Click Back Home.
+Open menu.
+Click Logout.
+Verify user is returned to Login page.
+Expected Result
+
+The user should successfully complete the purchase journey and receive the order confirmation.
+
+8. Detailed Test Cases
+Login Test Cases
+TC ID	Test Case	Expected Result	Priority
+LOGIN_001	Login with valid credentials	User reaches Inventory page	P0
+LOGIN_002	Invalid username	Error displayed	P1
+LOGIN_003	Invalid password	Error displayed	P1
+LOGIN_004	Empty username	Validation message displayed	P1
+LOGIN_005	Empty password	Validation message displayed	P1
+LOGIN_006	Empty username & password	Validation message displayed	P1
+LOGIN_007	Locked user login	Login should be rejected	P0
+LOGIN_008	Logout	User returns to login page	P0
+9. Inventory Test Cases
+TC ID	Test Case	Expected Result
+INV_001	Verify inventory page	Inventory page displayed
+INV_002	Verify product count	Products displayed correctly
+INV_003	Verify product names	Names displayed correctly
+INV_004	Verify product prices	Prices displayed correctly
+INV_005	Verify product descriptions	Descriptions displayed
+INV_006	Verify product images	Images displayed
+INV_007	Sort products A-Z	Correct sorting
+INV_008	Sort products Z-A	Correct sorting
+INV_009	Sort price low-high	Lowest price first
+INV_010	Sort price high-low	Highest price first
+INV_011	Open product details	Correct product detail page
+INV_012	Add product to cart	Product added
+INV_013	Remove product from inventory	Product removed
+
+The commonly documented inventory coverage includes product count, sorting, product details, prices and Add-to-Cart behavior.
+
+10. Cart Test Cases
+TC ID	Test Case	Expected Result
+CART_001	Add one product	Cart count = 1
+CART_002	Add two products	Cart count = 2
+CART_003	Add all products	Cart count reflects all selections
+CART_004	Open cart	Cart page displayed
+CART_005	Verify product name	Correct product displayed
+CART_006	Verify product price	Correct price displayed
+CART_007	Remove product	Product removed
+CART_008	Remove all products	Cart becomes empty
+CART_009	Continue Shopping	Inventory page displayed
+CART_010	Checkout from cart	Checkout page displayed
+11. Checkout Test Cases
+TC ID	Test Case	Expected Result
+CHECKOUT_001	Click Checkout	Checkout form displayed
+CHECKOUT_002	Submit empty form	First Name validation
+CHECKOUT_003	First Name missing	Validation displayed
+CHECKOUT_004	Last Name missing	Validation displayed
+CHECKOUT_005	Postal Code missing	Validation displayed
+CHECKOUT_006	Enter valid information	User proceeds
+CHECKOUT_007	Click Cancel	User returns to cart
+CHECKOUT_008	Verify checkout overview	Correct order displayed
+
+The checkout flow uses separate information and overview steps before the completion page.
+
+12. Order Summary Test Cases
+TC ID	Test Case	Expected Result
+ORDER_001	Verify product name	Correct
+ORDER_002	Verify product price	Correct
+ORDER_003	Verify quantity	Correct
+ORDER_004	Verify item total	Correct calculation
+ORDER_005	Verify tax	Correct calculation
+ORDER_006	Verify grand total	Item total + tax
+ORDER_007	Click Finish	Order completed
+ORDER_008	Verify confirmation	Confirmation displayed
+13. Navigation & Logout
+TC ID	Test Case	Expected Result
+NAV_001	Open hamburger menu	Menu displayed
+NAV_002	Click All Items	Inventory displayed
+NAV_003	Click About	About page opened
+NAV_004	Click Logout	Login page displayed
+NAV_005	Click Reset App State	Application state reset
+NAV_006	Browser Back navigation	Navigation works correctly
+NAV_007	Browser Refresh	Page remains stable
+14. Negative Testing
+
+Important negative scenarios:
+
+Invalid login
+Locked account
+Empty login fields
+Checkout without First Name
+Checkout without Last Name
+Checkout without Postal Code
+Empty cart behavior
+Removing product
+Repeated add/remove operations
+Invalid/special characters in checkout fields
+Direct navigation to protected pages without authentication
+15. UI Testing
+
+Verify:
+
+Page title
+Logo
+Buttons
+Product images
+Product names
+Product prices
+Cart icon
+Menu
+Checkout fields
+Error messages
+Confirmation message
+Alignment
+Visibility
+Enabled/disabled state
+16. Compatibility Testing
+
+Execute the critical E2E flow on:
+
+Browser	Coverage
+Chrome	Full
+Firefox	Full
+Edge	Full
+webkit  Full
+
+For automation, Playwright is particularly suitable for running the same E2E suite across multiple browsers.
+
+# saucedemo-playwright-js
 # SauceDemo Playwright Automation Framework
 
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright\&logoColor=white)
